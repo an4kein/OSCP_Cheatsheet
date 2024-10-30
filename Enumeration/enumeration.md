@@ -11,9 +11,13 @@ sudo nmap -sC -sV -p 80 192.168.120.227      # Varredura na porta 80 com scripts
 
 ## HTTP Enumeration
 
+### Initial Diagnostics
+
 ```
 curl http://192.168.120.121:8000 -v                # Realiza uma requisição HTTP na porta 8000 com saída detalhada, exibindo cabeçalhos e resposta do servidor
 ```
+
+### Silent Enumeration
 
 ```
 curl http://exfiltrated.offsec/ -s | html2text | tail   # Realiza uma requisição HTTP silenciosa e converte o HTML em texto simples, exibindo as últimas linhas da resposta
