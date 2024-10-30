@@ -13,11 +13,16 @@ sudo nmap -sC -sV -p 80 192.168.120.227      # Varredura na porta 80 com scripts
 
 ```
 curl http://192.168.120.121:8000 -v                # Realiza uma requisição HTTP na porta 8000 com saída detalhada, exibindo cabeçalhos e resposta do servidor
+```
+
+```
 curl http://exfiltrated.offsec/ -s | html2text | tail   # Realiza uma requisição HTTP silenciosa e converte o HTML em texto simples, exibindo as últimas linhas da resposta
 curl http://exfiltrated.offsec/ -s | grep login   # Realiza uma requisição HTTP silenciosa e filtra o conteúdo retornado, exibindo apenas linhas que contenham a palavra "login"
 curl http://exfiltrated.offsec/ -s | grep dashboard   # Realiza uma requisição HTTP silenciosa e filtra o conteúdo retornado, exibindo apenas linhas que contenham a palavra "dashboard"
 curl http://exfiltrated.offsec/panel/ -s | html2text | tail   # Realiza uma requisição HTTP silenciosa para o endpoint "/panel", converte o HTML em texto e exibe as últimas linhas da resposta
 ```
+
+**Nota**: Essa abordagem permite uma enumeração rápida e discreta da aplicação, identificando links importantes e a versão do CMS com baixo risco de deixar rastros. Dessa forma, é possível mapear pontos de entrada e possíveis vulnerabilidades sem gerar tráfego visível no navegador.
 
 ### Host Configuration
 
