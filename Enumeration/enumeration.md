@@ -8,6 +8,7 @@ sudo nmap -p- 192.168.120.121   # Varredura simples em todas as portas (1-65535)
 sudo nmap -p 4505,4506 192.168.120.121 -sV   # Varredura detalhada nas portas 4505 e 4506 com detecção de versão (Ele observou portas diferentes e, por isso, decidiu começar por elas.)
 sudo nmap -sC -sV -p 80 192.168.120.227      # Varredura na porta 80 com scripts padrão e detecção de versão do serviço
 sudo nmap -p 2181,8080 -A 192.168.120.227
+sudo nmap -p22,80 -sC -sV -oA nmap/gravity 192.168.145.160
 ```
 
 ## HTTP Enumeration
