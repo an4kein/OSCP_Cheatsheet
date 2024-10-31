@@ -42,42 +42,42 @@ echo "192.168.120.121 exfiltrated.offsec" | sudo tee -a /etc/hosts
 
 ## Google Dorks para Pesquisa de Exploits
 
-### 1. Básico de Exploits e Vulnerabilidades
+1. Básico de Exploits e Vulnerabilidades
 - `application_name exploit` – Pesquisa geral para exploits da aplicação.
 - `application_name version exploit` – Exploits específicos para uma versão.
 - `application_name vulnerability` – Vulnerabilidades conhecidas da aplicação.
 
-### 2. Sites de Exploits e Documentação Técnica
+2. Sites de Exploits e Documentação Técnica
 - `site:exploit-db.com application_name` – Busca exploits no Exploit-DB.
 - `site:packetstormsecurity.com application_name` – Busca exploits no PacketStorm.
 - `site:github.com application_name exploit` – Repositórios no GitHub que podem conter scripts de exploração.
 - `site:nvd.nist.gov application_name` – Vulnerabilidades catalogadas na NVD (National Vulnerability Database).
 
-### 3. Buscando Vulnerabilidades em Aplicações Específicas
+3. Buscando Vulnerabilidades em Aplicações Específicas
 - `application_name CVE` – Lista possíveis CVEs associados à aplicação.
 - `application_name version CVE` – CVEs de uma versão específica.
 - `application_name security advisory` – Consultas para encontrar boletins de segurança da aplicação.
 
-### 4. Documentação Técnica e API
+4. Documentação Técnica e API
 - `application_name documentation` – Documentação oficial ou manuais.
 - `application_name API reference` – Referência de API para entender endpoints potencialmente exploráveis.
 
-### 5. Fóruns e Discussões
+5. Fóruns e Discussões
 - `site:stackoverflow.com application_name exploit` – Perguntas no Stack Overflow sobre possíveis vulnerabilidades.
 - `site:reddit.com application_name exploit` – Discussões no Reddit sobre vulnerabilidades.
 - `site:securityfocus.com application_name` – Exploits e discussões sobre segurança no SecurityFocus.
 
-### 6. Identificação de Painéis de Administração e Interfaces
+6. Identificação de Painéis de Administração e Interfaces
 - `application_name admin login` – Identificar possíveis páginas de login ou de administração.
 - `application_name intitle:"index of" "admin"` – Páginas de diretórios abertos com "admin".
 - `application_name "version" inurl:login` – Identifica logins específicos de versões da aplicação.
 
-### 7. Busca em Repositórios de Vulnerabilidades
+7. Busca em Repositórios de Vulnerabilidades
 - `site:cvedetails.com application_name` – Para encontrar vulnerabilidades detalhadas.
 - `site:rapid7.com database application_name` – Vulnerabilidades e exploits da Rapid7.
 - `site:snyk.io vulnerabilities application_name` – Busca vulnerabilidades da aplicação no Snyk.
 
-### Exemplo Prático
+Exemplo Prático
 
 Se você identificou o **Exhibitor para Zookeeper**, use dorks como:
 
