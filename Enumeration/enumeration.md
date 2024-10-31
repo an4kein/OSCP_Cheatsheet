@@ -9,6 +9,7 @@ sudo nmap -p 4505,4506 192.168.120.121 -sV   # Varredura detalhada nas portas 45
 sudo nmap -sC -sV -p 80 192.168.120.227      # Varredura na porta 80 com scripts padrão e detecção de versão do serviço
 sudo nmap -p 2181,8080 -A 192.168.120.227
 sudo nmap -p22,80 -sC -sV -oA nmap/gravity 192.168.145.160
+sudo nmap -sV 192.168.120.118 -p- -Pn
 ```
 
 ## HTTP Enumeration
@@ -87,3 +88,77 @@ Se você identificou o **Exhibitor para Zookeeper**, use dorks como:
 
 Durante o OSCP, sempre comece as pesquisas com o nome e a versão da aplicação, caso disponível. Isso restringe os resultados e aumenta a chance de encontrar exploits específicos e aplicáveis.
 
+---
+
+
+### Redis Enumeration Cheat Sheet 
+
+Ref: https://book.hacktricks.xyz/network-services-pentesting/6379-pentesting-redis
+
+Passo 1: Conectar ao Servidor Redis Remoto
+
+Conecte-se ao servidor Redis usando `redis-cli` especificando o IP do alvo:
+
+```
+redis-cli -h <IP_do_Alvo>
+```
+
+> Exemplo:
+> ```
+> redis-cli -h 192.168.120.118
+> ```
+
+
+
+Passo 2: Testar Conectividade com o Comando PING
+
+Após conectar, teste a conectividade com o comando `ping`:
+
+```
+192.168.120.118:6379> ping
+```
+
+> Saída esperada:
+> ```
+> PONG
+> ```
+
+Passo 3: Testar Gravação de Dados
+
+Verifique se é possível gravar dados no servidor. Use `SET` para salvar uma chave e `GET` para ler essa chave:
+
+```
+192.168.120.118:6379> set 1 "offsec"
+192.168.120.118:6379> get 1
+```
+
+> Saída esperada:
+> ```
+> OK
+> "offsec"
+> ```
+
+Passo 4: Coletar Informações do Sistema com INFO SERVER
+
+Use o comando `INFO SERVER` para obter detalhes sobre a instância Redis e o sistema onde está rodando:
+
+```
+192.168.120.118:6379> INFO SERVER
+```
+
+> Exemplo de informações úteis na saída:
+> - `redis_version`: Versão do Redis (ex.: 4.0.14)
+> - `os`: Sistema operacional (ex.: Linux 5.8.0-63-generic x86_64)
+> - `tcp_port`: Porta TCP em uso (ex.: 6379)
+> - `uptime_in_days`: Uptime do servidor (ex.: 4 dias)
+> - `gcc_version`: Versão do compilador usado (ex.: 10.2.0)
+
+Resumo do Procedimento
+
+1. **Conectar ao Redis**: `redis-cli -h <IP_do_Alvo>`
+2. **Testar com PING**: `ping`
+3. **Testar Gravação de Dados**: `set <chave> <valor>` e `get <chave>`
+4. **Obter Informações do Sistema**: `INFO SERVER`
+
+
+> **Nota**: Este processo pode ajudar a identificar versões vulneráveis de Redis e configurações fracas, como permissões de escrita para usuários remotos.
